@@ -1,7 +1,27 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+
+// Dynamic imports για τα components του react-leaflet ώστε να φορτώνονται μόνο στον client
+const MapContainer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Popup),
+  { ssr: false }
+);
 
 export default function Home() {
   return (
@@ -14,6 +34,7 @@ export default function Home() {
         Καλώς ήρθατε στο Solo60 Clone 🚀
       </motion.h1>
 
+      {/* Ενότητα τοποθεσίας με χάρτη */}
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-lg max-w-4xl w-full"
         initial={{ opacity: 0 }}
@@ -23,7 +44,7 @@ export default function Home() {
         <h2 className="text-2xl font-semibold mb-4 text-gray-700">Τοποθεσία</h2>
         <div className="h-64 w-full rounded-lg overflow-hidden">
           <MapContainer
-            center={[51.5202, -0.0795]} // Example coordinates for Shoreditch
+            center={[51.5202, -0.0795]} // Συντεταγμένες παράδειγμα (Shoreditch)
             zoom={15}
             style={{ height: "100%", width: "100%" }}
           >
@@ -35,6 +56,7 @@ export default function Home() {
         </div>
       </motion.div>
 
+      {/* Ενότητα κράτησης */}
       <motion.div
         className="bg-white p-6 rounded-2xl shadow-lg max-w-4xl w-full mt-6"
         initial={{ opacity: 0 }}
